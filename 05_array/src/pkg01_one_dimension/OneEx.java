@@ -1,5 +1,7 @@
 package pkg01_one_dimension;
 
+import java.util.Arrays;
+
 public class OneEx {
 
   public static void main(String[] args) {
@@ -23,11 +25,52 @@ public class OneEx {
     System.out.println(members[2]);
     System.out.println(members[3]);
     
-    
-    
-    
-    
+    // 배열 요소의 초기화-1 (선언할때만 초기화를 할 수 있다.)
+    String[] hobbies = {"게임", "여행", "독서"};
+    System.out.println(hobbies);
+    System.out.println(hobbies.toString());
+    System.out.println(Arrays.toString(hobbies));
 
+    // 배열 요소의 초기화-2 (선언과 초기화를 분리할 수 있다.)
+    String[] movies;
+    movies = new String[] {"타이타닉", "스타워즈", "에일리언"};
+    System.out.println(Arrays.toString(movies));
+    
+    // 배열 길이 (Immutable : 수정할 수 없다.)
+    String[] flowers = {"장미", "동백", "할미"};
+    System.out.println(flowers.length);
+    // flowers.length = 10;  실행 불가 (length 필드는 final 필드)
+    
+    // 배열 순회 (일반 for 문)
+    String[] animals = new String[] {"코뿔소", "기린", "코끼리"};
+    for(int i = 0; i < animals.length; i++) {
+      System.out.println(animals[i]);
+    }
+    
+    // 배열의 길이를 늘이는 방법
+    // 1. 새로운 길이의 새로운 배열을 만든다.
+    // 2. 기존 배열의 요소를 모두 새로운 배열로 옮긴다.
+    // 3. 기존 배열의 참조를 새로운 배열의 참조로 바꾼다.
+    String[] seasons = {"봄", "여름"};
+    String[] temp = new String[4];
+    for(int i = 0; i < seasons.length; i++) {
+      temp[i] = seasons[i];
+    }
+    seasons = temp;
+    System.out.println(Arrays.toString(seasons));  // [봄, 여름, 가을, 겨울]
+    
+    // 배열 순회 (Advanced for 문 - 배열 요소를 수정할때는 사용할 수 없다.)
+    String[] foods = {"김치", "보쌈", "시금치"};
+    for(String food : foods) {
+      food = "오리로스";  // 모든 요소를 "오리로스"로 수정하는 코드가 아님!
+    }
+    System.out.println(Arrays.toString(foods));
+    
+    // 단순 참조 용으로 사용
+    for(String food : foods) {
+      System.out.println(food);
+    }
+    
   }
 
 }
