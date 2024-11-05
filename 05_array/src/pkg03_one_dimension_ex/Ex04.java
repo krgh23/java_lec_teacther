@@ -25,6 +25,16 @@ public class Ex04 {
     int[] binary = new int[10]; //   | 1 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 |
                                 //   └---------------------------------------┘
 
+    int i = 0;
+    while(number > 0) {
+      binary[i++] = number % 2;
+      number /= 2;  // number = number / 2;
+    }
+    
+    for(int j = i - 1; j >= 0; j--) {
+      System.out.print(binary[j]);
+    }
+    
   }
 
 }
