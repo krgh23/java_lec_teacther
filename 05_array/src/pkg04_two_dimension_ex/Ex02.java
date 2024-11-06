@@ -28,8 +28,3 @@ public class Ex02 {
   }
 
 }
-
-
-
-
-
