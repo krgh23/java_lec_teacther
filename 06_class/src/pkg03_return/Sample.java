@@ -22,16 +22,40 @@ public class Sample {
     System.out.println(number);
   }
   
+  /**
+   * choice 에 따라 다른 문자열을 반환하는 메소드
+   * @param choice 1,2,3 중 하나의 정수 값
+   * @return "아메리카노", "카페라떼", "아인슈패너" 중 하나
+   */
+  String methodB(int choice) {
+    String retValue = "없는 메뉴";
+    switch(choice) {
+    case 1:
+      retValue = "아메리카노";
+      break;
+    case 2:
+      retValue = "카페라떼";
+      break;
+    case 3:
+      retValue = "아인슈패너";
+      break;
+    }
+    return retValue;
+  }
   
+  /**
+   * @return String[] 타입의 배열 반환
+   */
+  String[] methodC() {
+    return new String[]{"머리", "가슴", "배"};
+  }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  /**
+   * @return Car 클래스의 brand 메소드가 반환하는 값을 반환
+   */
+  String methodD() {
+    Car car = new Car();
+    return car.brand();
+  }
   
 }
