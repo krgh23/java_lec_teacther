@@ -59,16 +59,58 @@ public class TwoEx {
     }
     
     // 2차원 배열 순회2 - Advanced for 문
+    for(String[] ary : seats) {
+      for(String seat : ary) {
+        System.out.print(seat + " ");
+      }
+      System.out.println();
+    }
+      
+    // 서로 길이가 다른 1차원 배열을 2차원 배열로 관리하기
+    String[][] menus = new String[3][];  // 1차원 배열이 3개 있다. 각 1차원 배열의 길이는 모른다.
     
+    // 각 1차원 배열의 길이 정하기
+    menus[0] = new String[3];  // 1번째 1차원 배열의 길이는 3이다.
+    menus[1] = new String[5];  // 2번째 1차원 배열의 길이는 5이다.
+    menus[2] = new String[4];  // 3번째 1차원 배열의 길이는 4이다.
       
-      
-      
-      
-      
-      
-      
-      
-      
+    // 2차원 배열 순회하기 (일반 for 문)
+    for(int i = 0; i < menus.length; i++) {
+      for(int j = 0; j < menus[i].length; j++) {
+        System.out.print(menus[i][j] + " ");
+      }
+      System.out.println();
+    }
+    
+    // 2차원 배열의 초기화-1 (선언할때만 가능한 초기화 방식)
+    String[][] animals = {
+        {"tiger", "lion"},
+        {"dolphin", "shark"},
+        {"falcon", "eagle"}
+    };
+    
+    // for 문 출력
+    for(int i = 0; i < animals.length; i++) {
+      for(int j = 0; j < animals[i].length; j++) {
+        System.out.print(String.format("%10s", animals[i][j]));
+      }
+      System.out.println();
+    }
+    
+    // 2차원 배열의 초기화-2 (선언과 초기화를 분리하는 방식)
+    String[][] flowers;
+    flowers = new String[][] {
+      {"장미", "안개꽃"},
+      {"동백", "튤립", "프리지아"}
+    };
+    
+    // for 문 출력
+    for(int i = 0; i < flowers.length; i++) {
+      for(int j = 0; j < flowers[i].length; j++) {
+        System.out.print(String.format("%-5s", flowers[i][j]));
+      }
+      System.out.println();
+    }
 
   }
 
