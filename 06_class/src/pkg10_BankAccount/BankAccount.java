@@ -2,10 +2,10 @@ package pkg10_BankAccount;
 
 public class BankAccount {
 
-  String accNo;
-  long balance;
+  private String accNo;
+  private long balance;
   
-  BankAccount(String accNo, long balance) {
+  public BankAccount(String accNo, long balance) {
     this.accNo = accNo;
     this.balance = balance;
   }
@@ -14,7 +14,7 @@ public class BankAccount {
    * 입금 처리. 
    * @param money 입금액. 마이너스 금액 불가.
    */
-  void deposit(long money) {
+  public void deposit(long money) {
     if(money < 0)
       return;
     balance += money;
@@ -25,7 +25,7 @@ public class BankAccount {
    * @param money 출금액. 마이너스 출금 불가. 잔액보다 큰 금액 출금 불가.
    * @return 실제 출금액.
    */
-  long withdrawal(long money) {
+  public long withdrawal(long money) {
     if(money < 0)
       return 0L;
     if(money > balance)
@@ -39,7 +39,7 @@ public class BankAccount {
    * @param bankAccount 이체할 계좌 정보
    * @param money 이체할 금액
    */
-  void transfer(BankAccount bankAccount, long money) {
+  public void transfer(BankAccount bankAccount, long money) {
     long withdrawalMoney = this.withdrawal(money);
     bankAccount.deposit(withdrawalMoney);
     // bankAccount.deposit(this.withdrawal(money));
@@ -48,7 +48,7 @@ public class BankAccount {
   /**
    * 계좌 조회. 계좌번호와 통장잔액을 출력.
    */
-  void inquiry() {
+  public void inquiry() {
     System.out.println("BankAccountNo: " + accNo);
     System.out.println("Balance: " + balance);
   }
