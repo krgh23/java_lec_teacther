@@ -15,7 +15,13 @@ public class CarrierEx {
     Cup cup3 = new Cup();
     cup3.setCoffee(new CafeLatte("카페라떼"));
     System.out.println(cup3.getCoffee().getName());  // 카페라떼
-
+    
+    Carrier carrier = new Carrier(3);  // Coffee 3 종류 가능
+    carrier.addCup(cup1);
+    carrier.addCup(cup2);
+    carrier.addCup(cup3);
+    carrier.info();  // 에스프레소, 아메리카노, 카페라떼
+    
   }
 
 }
