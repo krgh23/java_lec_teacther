@@ -11,7 +11,7 @@ package pkg00_Carrier;
   └-------------------┘
             ▲
   ┌-------------------┐
-  │ Escpresso         │ 서브 클래스
+  │ Espresso          │ 서브 클래스
   │-------------------│
   │ Espresso(String)  │
   └-------------------┘
@@ -23,6 +23,10 @@ package pkg00_Carrier;
   └-------------------┘
 */
 
-public class CafeLatte {
+public class CafeLatte extends Espresso {
 
+  public CafeLatte(String name) {
+    super(name);
+  }
+  
 }
