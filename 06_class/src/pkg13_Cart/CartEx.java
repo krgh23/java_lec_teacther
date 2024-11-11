@@ -13,7 +13,7 @@ public class CartEx {
     // 고객이 cart 를 가짐
     customer.setCart(cart);
     
-    // 물건 넣기 
+    // 물건 넣기
     customer.addToCart(new Product("맛동산", 3000));
     customer.addToCart(new Product("양파링", 2000));
     customer.addToCart(new Product("홈런볼", 5000));
