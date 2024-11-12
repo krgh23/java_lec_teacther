@@ -1,4 +1,4 @@
-package pkg10_interface.overview;
+package pkg10_interface.A_overview;
 
 /*
  * 클래스 상속 vs 인터페이스 구현
@@ -9,23 +9,25 @@ package pkg10_interface.overview;
  * 3. 자식 클래스   구현 클래스
  */
 
-public class Circle implements Shape {
+public class Rectangle implements Shape {
+
+  private double width;
+  private double height;
   
-  private double radius;
-  
-  public Circle(double radius) {
+  public Rectangle(double width, double height) {
     super();
-    this.radius = radius;
+    this.width = width;
+    this.height = height;
   }
 
   @Override
   public double getCircum() {
-    return 2 * Math.PI * radius;
+    return 2 * (width + height);
   }
   
   @Override
   public double getArea() {
-    return Math.PI * Math.pow(radius, 2);
+    return width * height;
   }
-
+  
 }

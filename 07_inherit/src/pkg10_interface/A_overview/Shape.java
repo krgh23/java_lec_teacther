@@ -1,4 +1,4 @@
-package pkg10_interface.overview;
+package pkg10_interface.A_overview;
 
 /**
  * 인터페이스
