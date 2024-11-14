@@ -230,7 +230,7 @@ public class Class01_String {
     System.out.println(String.format("%X", number2));    // 16진수(0~F)
     System.out.println(String.format("%d", number2));    // 10진수
     System.out.println(String.format("%5d", number2));   // 10진수
-    System.out.println(String.format("%05d", number2));  // 10진수
+    System.out.println(String.format("%05d", number2));  // 10진수 : "00123"
     
     // 문자열 형식
     String str = "hello";
@@ -241,7 +241,7 @@ public class Class01_String {
   }
   
   public static void main(String[] args) {
-    
+    method1();
   }
 
   public static void practice01() {
@@ -250,6 +250,8 @@ public class Class01_String {
     String uri = "http://localhost:8080/project/list.do";
     String contextPath = "/project";
     
+    String mapping = uri.substring(uri.indexOf(contextPath) + contextPath.length());
+    System.out.println(mapping);
     
   }
   
@@ -257,7 +259,7 @@ public class Class01_String {
     
     // 앞으로 읽어도 뒤로 읽어도 동일한 문자열 판단하기
     
-    String word = "wertyuiokl;o;p";
+    String word = "wertyuiokl;o;p";  // "level", "noon"
     
     // 1. 한 글자씩 비교하기
     /*
@@ -276,10 +278,22 @@ public class Class01_String {
      *    앞    뒤
      *    i     n - i - 1
      */
-    
+    boolean result = true;
+    for(int i = 0, length = word.length(); i < length / 2; i++) {
+      if(word.charAt(i) != word.charAt(length - i - 1)) {
+        result = false;
+        break;
+      }
+    }
+    System.out.println(result);
     
     // 2. 거꾸로 문자열을 만들어서 비교하기
-
+    StringBuilder builder = new StringBuilder();
+    for(int i = word.length() - 1; i >= 0; i--) {
+      builder.append(word.charAt(i));
+    }
+    String reverse = builder.toString();
+    System.out.println(word.equals(reverse));
     
   }
   
