@@ -1,82 +1,48 @@
 package pkg07_Cart;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cart {
 
-  private Product[] products;
-  private int idx;  // 인덱스 == Product 의 갯수
+  private List<Product> products;
   
   public Cart() {
-    
-  }
-  public Cart(int length) {
-    products = new Product[length];
+    products = new ArrayList<Product>();
   }
   
-  public Product[] getProducts() {
+  public List<Product> getProducts() {
     return products;
   }
-  
-  public void setProducts(Product[] products) {
+
+  public void setProducts(List<Product> products) {
     this.products = products;
   }
-  
-  public int getIdx() {
-    return idx;
-  }
-  
-  public void setIdx(int idx) {
-    this.idx = idx;
-  }
-  
-  public void addProduct(Product product) {
+
+  public void addProduct(Product product) throws RuntimeException {
     
     if(product == null) {
-      System.out.println("Cart 에 담을 Product 이 없습니다.");
-      return;
+      throw new RuntimeException("Cart 에 담을 Product 이 없습니다.");
     }
     
-    if(idx == products.length) {
-      System.out.println("Cart 가 가득 찼습니다.");
-      return;
-    }
-    
-    products[idx++] = product;
+    products.add(product);
     
   }
   
-  public Product removeProduct(int removeIdx) {
+  public Product removeProduct(int removeIdx) throws RuntimeException {
     
-    if(idx == 0) {
-      System.out.println("Cart 가 비어 있습니다.");
-      return null;
+    int size = products.size();
+    
+    if(size == 0) {
+      throw new RuntimeException("Cart 가 비어 있습니다.");
     }
     
-    if(removeIdx < 0 || removeIdx >= idx) {
-      System.out.println("존재하지 않는 인덱스입니다.");
-      return null;
+    if(removeIdx < 0 || removeIdx >= size) {
+      throw new RuntimeException("존재하지 않는 인덱스입니다.");
     }
     
-    Product removedProduct = products[removeIdx];
-    
-    /*
-      Cart 에 담긴 물건의 갯수(idx)에 따라 복사해야 할 요소의 갯수가 달라진다.
-      
-      idx 가 5 라고 가정하면 removeIdx 에 따라 복사해야 할 요소의 갯수는 아래와 같다.
-      
-      removeIdx     복사해야 할 요소의 갯수
-      0             4
-      1             3
-      2             2
-      3             1
-      4             0
-      --------------------------------------
-                    idx - 1 - removeIdx
-    */
-    
-    System.arraycopy(products, removeIdx + 1, products, removeIdx, idx - 1 - removeIdx);
-    products[--idx] = null;
-    
-    return removedProduct;
+    // remove(int index) 메소드는 삭제한 Product 을 반환한다.
+    return products.remove(removeIdx);
     
   }
   

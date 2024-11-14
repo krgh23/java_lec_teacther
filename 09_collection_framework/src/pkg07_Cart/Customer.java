@@ -1,5 +1,7 @@
 package pkg07_Cart;
 
+import java.util.List;
+
 public class Customer {
 
   private int money;
@@ -40,24 +42,25 @@ public class Customer {
   
   // 구매
   // 반환 : 영수증
-  public String buy() {
+  public String buy() throws RuntimeException {
     
     String receipt = "영수증\n";
     
     int total = 0;
     
-    for(int i = 0, count = cart.getIdx(); i < count; i++) {
+    List<Product> products = cart.getProducts();
+    
+    for(int i = 0, count = products.size(); i < count; i++) {
       
       // cart 에서 뺀 물건 1개
-      Product product = cart.getProducts()[i];
+      Product product = products.get(i);
       
       // 총 구매액에 누적
       total += product.getPrice();
       
       // 구매 가능 여부 체크
       if(money < total) {
-        System.out.println("구매금액이 부족합니다.");
-        return null;
+        throw new RuntimeException("구매금액이 부족합니다.");
       }
       
       // 영수증 만들기
