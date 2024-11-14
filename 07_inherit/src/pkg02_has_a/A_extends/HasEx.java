@@ -1,4 +1,4 @@
-package pkg02_has_a;
+package pkg02_has_a.A_extends;
 
 public class HasEx {
 

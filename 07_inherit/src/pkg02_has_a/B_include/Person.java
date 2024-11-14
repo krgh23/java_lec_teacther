@@ -1,4 +1,4 @@
-package pkg02_has_a2;
+package pkg02_has_a.B_include;
 
 public class Person {
 
