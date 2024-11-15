@@ -3,6 +3,8 @@ package pkg01_File;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /*
  * java.io.File 클래스
@@ -36,10 +38,9 @@ public class FileEx {
     // 디렉터리가 없으면 만들기
     if( !dir.exists() ) {
       dir.mkdirs();
+      // 확인
+      System.out.println(dir.getName() + " 디렉터리가 생성되었습니다.");
     }
-    
-    // 확인
-    System.out.println(dir.getName() + " 디렉터리가 생성되었습니다.");
     
   }
   
@@ -100,8 +101,44 @@ public class FileEx {
     
   }
   
+  public static void d() {
+    
+    /* D:\\2024\\11\\15 디렉터리 만들기 실습 */
+    
+    String pathname = "D:\\" + DateTimeFormatter.ofPattern("yyyy\\MM\\dd").format(LocalDate.now());
+    File dir = new File(pathname);
+    
+    if( !dir.exists() ) {
+      dir.mkdirs();
+      System.out.println(dir.getPath() + " 디렉터리가 생성되었습니다.");
+    }
+    
+  }
+  
+  public static void e(String pathname) {
+    
+    /* D:\\2024 디렉터리 삭제 실습 */
+    /*
+     * D:\\2024\\11\\15 삭제 -> e("D:\\2024\\11\\15")
+     * D:\\2024\\11     삭제 -> e("D:\\2024\\11")
+     * D:\\2024         삭제 -> e("D:\\2024")
+     *                       -> e("D:")  종료시점 (상위 디렉터리가 없으면 종료)
+     */
+    
+    File dir = new File(pathname);
+    File parent = dir.getParentFile();
+    if(parent == null)
+      return;
+    
+    System.out.println(dir.getPath() + " 디렉터리를 삭제합니다.");
+    dir.delete();
+    
+    e(dir.getParent());
+    
+  }
+  
   public static void main(String[] args) {
-    c();
+    e("D:\\2024\\11\\15");
   }
 
 }
