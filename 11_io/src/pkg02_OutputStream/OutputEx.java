@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class OutputEx {
 
@@ -141,7 +142,7 @@ public class OutputEx {
     
     try {
       
-      out = new DataOutputStream(new FileOutputStream(file));
+      out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
       
       int age = 10;
       out.writeInt(age);
@@ -171,9 +172,39 @@ public class OutputEx {
     
   }
   
+  public static void e() {
+    
+    // 인스턴스를 출력할 수 있는 스트림 : ObjectOutputStream
+    
+    File dir = new File("\\storage");
+    if(!dir.exists())
+      dir.mkdirs();
+    
+    File file = new File(dir, "sample5.dat");
+    
+    ObjectOutputStream out = null;
+    
+    try {
+      
+      out = new ObjectOutputStream(new FileOutputStream(file));
+      
+      out.writeObject(new Car("genesis", "G90"));  // 직렬화가 가능한 인스턴스를 출력할 수 있다.
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if(out != null)
+          out.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    
+  }
   
   public static void main(String[] args) {
-    d();
+    e();
   }
 
 }
