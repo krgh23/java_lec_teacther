@@ -1,6 +1,7 @@
 package pkg02_OutputStream;
 
 import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -125,9 +126,54 @@ public class OutputEx {
     }
     
   }
+
+  public static void d() {
+    
+    // 변수 그대로 출력하는 스트림 : DataOutputStream
+    
+    File dir = new File("\\storage");
+    if(!dir.exists())
+      dir.mkdirs();
+    
+    File file = new File(dir, "sample4.dat");
+    
+    DataOutputStream out = null;
+    
+    try {
+      
+      out = new DataOutputStream(new FileOutputStream(file));
+      
+      int age = 10;
+      out.writeInt(age);
+      
+      double height = 150.0;
+      out.writeDouble(height);
+      
+      char gender = '남';
+      out.writeChar(gender);
+      
+      boolean isCute = true;
+      out.writeBoolean(isCute);
+      
+      String name = "또치";
+      out.writeUTF(name);
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if(out != null)
+          out.close();
+      } catch(IOException e) {
+        e.printStackTrace();
+      }
+    }
+    
+  }
+  
   
   public static void main(String[] args) {
-    c();
+    d();
   }
 
 }
