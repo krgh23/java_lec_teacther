@@ -2,9 +2,15 @@ package pkg04_InputStream;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import pkg02_OutputStream.Car;
 
 public class InputEx {
 
@@ -132,10 +138,54 @@ public class InputEx {
     
   }
 
-  
+  public static void d() {
+    
+    File file = new File("\\storage", "sample5.dat");
+    
+    // ObjectInputStream : 객체를 읽는 스트림
+    
+    ObjectInputStream in = null;
+    
+    // Car 인스턴스를 저장할 List 생성
+    List<Car> cars = new ArrayList<Car>();
+    
+    try {
+      
+      in = new ObjectInputStream(new FileInputStream(file));
+      
+      // EOFException 예외 발생 전까지 반복하는 무한 루프
+      while(true) {
+        
+        // 인스턴스 읽기 : readObject() 읽은 인스턴스를 반환하거나, 파일이 끝나면 EOFException 을 발생시킨다. 
+        Car car = (Car) in.readObject();
+        
+        // 읽은 인스턴스 List 에 저장하기
+        cars.add(car);
+        
+      }
+      
+    } catch (EOFException e) {
+      
+      // List 확인
+      for(int i = 0, size = cars.size(); i < size; i++) {
+        System.out.println(cars.get(i));
+      }
+      
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if(in != null)
+          in.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    
+  }
   
   public static void main(String[] args) {
-    c();
+    d();
   }
 
 }

@@ -36,5 +36,10 @@ public class Car implements Serializable {
   public void setModel(String model) {
     this.model = model;
   }
+
+  @Override
+  public String toString() {
+    return "Car [brand=" + brand + ", model=" + model + "]";
+  }
   
 }
