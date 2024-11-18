@@ -1,6 +1,7 @@
 package pkg04_InputStream;
 
 import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -54,10 +55,87 @@ public class InputEx {
     
     // n 바이트씩 데이터 읽기
     
+    File file = new File("\\storage", "sample2.dat");
+    
+    BufferedInputStream in = null;
+    
+    try {
+      
+      in = new BufferedInputStream(new FileInputStream(file));
+      
+      // 읽을 단위 : byte[] 배열로 n 바이트씩 읽는다.
+      byte[] b = new byte[4];
+      
+      // 읽은 데이터를 보관할 배열 : 배열의 길이를 파일의 크기와 맞춤
+      byte[] bytes = new byte[(int) file.length()];
+      int i = 0;
+      
+      // 파일의 종료까지 계속 읽기 : read(byte[]) 메소드는 읽은 내용을 인자에 저장하고, 읽은 바이트 수를 반환한다. 파일이 종료되면 -1 을 반환한다.
+      int readbyte = 0;
+      while( (readbyte = in.read(b)) != -1 ) {
+        System.arraycopy(b, 0, bytes, i, readbyte);
+        i += readbyte;
+      }
+      
+      // 확인
+      System.out.println(new String(bytes));
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if(in != null)
+          in.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    
   }
+
+  public static void c() {
+    
+    File file = new File("\\storage", "sample4.dat");
+    
+    // DataInputStream : 변수를 읽는 스트림
+    
+    DataInputStream in = null;
+    
+    try {
+      
+      in = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
+      
+      // 파일에 저장된 변수는 순서대로 읽어야 한다.
+      int age = in.readInt();
+      double height = in.readDouble();
+      char gender = in.readChar();
+      boolean isCute = in.readBoolean();
+      String name = in.readUTF();
+      
+      // 확인
+      System.out.println(age);
+      System.out.println(height);
+      System.out.println(gender);
+      System.out.println(isCute);
+      System.out.println(name);
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if(in != null)
+          in.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    
+  }
+
+  
   
   public static void main(String[] args) {
-    a();
+    c();
   }
 
 }

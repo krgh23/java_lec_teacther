@@ -24,9 +24,19 @@ public class ByteCopyEx {
       
       long begin = System.currentTimeMillis();
 
+      // 1 바이트씩 복사하기
+      /*
       int c;
       while ( (c = in.read()) != -1 ) {
         out.write(c);
+      }
+      */
+      
+      // 4 바이트씩 복사하기
+      byte[] b = new byte[4];
+      int readbyte = 0;
+      while ( (readbyte = in.read(b)) != -1 ) {
+        out.write(b, 0, readbyte);
       }
       
       long end = System.currentTimeMillis();
@@ -45,14 +55,6 @@ public class ByteCopyEx {
       }
       
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
   }
 

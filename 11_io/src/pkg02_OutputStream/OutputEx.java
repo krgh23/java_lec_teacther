@@ -189,6 +189,8 @@ public class OutputEx {
       out = new ObjectOutputStream(new FileOutputStream(file));
       
       out.writeObject(new Car("genesis", "G90"));  // 직렬화가 가능한 인스턴스를 출력할 수 있다.
+      out.writeObject(new Car("volvo", "XC90"));
+      out.writeObject(new Car("bmw", "X7"));
       
     } catch (IOException e) {
       e.printStackTrace();
