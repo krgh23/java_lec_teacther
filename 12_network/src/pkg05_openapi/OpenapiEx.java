@@ -223,7 +223,7 @@ public class OpenapiEx {
       .getJSONObject("description")
       .getJSONObject("body")
       .getJSONArray("data");
-      
+    
     for(int i = 0, length = data.length(); i < length; i++) {
       JSONObject obj = data.getJSONObject(i);
       System.out.println("hour : " + obj.getInt("hour"));
