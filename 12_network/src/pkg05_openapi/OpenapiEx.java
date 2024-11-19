@@ -53,6 +53,10 @@ public class OpenapiEx {
     in.close();
     conn.disconnect();
     
+    /* XML -> JSONObject */
+    // org.json.JSONObject obj = org.json.XML.toJSONObject(responseBody.toString());
+    // System.out.println(obj);
+    
   }
   
   public static void b() throws Exception {
@@ -140,7 +144,6 @@ public class OpenapiEx {
     in.close();
     conn.disconnect();
     
-    
     JSONArray item = new JSONObject(responseBody.toString())
                           .getJSONObject("response")
                           .getJSONObject("body")
@@ -162,8 +165,37 @@ public class OpenapiEx {
     
   }
   
+  public static void d() throws Exception {
+    
+    // 기상청 RSS (XML 받아서 Document 이용해서 파싱하기)
+    
+    String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=1168066000";
+    
+    DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder docBuilder = builderFactory.newDocumentBuilder();
+    Document doc = docBuilder.parse(apiURL);
+    
+    doc.getDocumentElement().normalize();
+    
+    NodeList nodeList = doc.getElementsByTagName("data");  // 19개의 <data> 태그들
+    
+    for(int i = 0, length = nodeList.getLength(); i < length; i++) {
+      
+      Node node = nodeList.item(i);      // 각 <data> 태그
+      Element element = (Element) node;  // getElementsByTagName() 메소드 사용을 위해서 Node -> Element 변경
+      System.out.println("hour : " + element.getElementsByTagName("hour").item(0).getTextContent());
+      System.out.println("temp : " + element.getElementsByTagName("temp").item(0).getTextContent());
+      System.out.println("tmx : " + element.getElementsByTagName("tmx").item(0).getTextContent());
+      System.out.println("tmn : " + element.getElementsByTagName("tmn").item(0).getTextContent());
+      System.out.println("wfKor : " + element.getElementsByTagName("wfKor").item(0).getTextContent());
+      System.out.println("----------");
+      
+    }
+    
+  }
+  
   public static void main(String[] args) throws Exception {
-    c();
+    d();
   }
 
 }
