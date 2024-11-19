@@ -54,10 +54,6 @@ public class OpenapiEx {
     in.close();
     conn.disconnect();
     
-    /* XML -> JSONObject */
-    // org.json.JSONObject obj = org.json.XML.toJSONObject(responseBody.toString());
-    // System.out.println(obj);
-    
   }
   
   public static void b() throws Exception {
@@ -197,7 +193,7 @@ public class OpenapiEx {
 
   public static void e() throws Exception {
     
-    // 기상청 RSS (XML 받아서 JSONObject 로 바뀐 뒤 파싱하기)
+    // 기상청 RSS (XML 받아서 JSONObject 로 바꾼 뒤 파싱하기)
     
     String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=1168066000";
     
@@ -219,6 +215,7 @@ public class OpenapiEx {
     in.close();
     conn.disconnect();
     
+    /* XML -> JSONObject */
     JSONArray data = XML.toJSONObject(responseBody.toString())
       .getJSONObject("rss")
       .getJSONObject("channel")
