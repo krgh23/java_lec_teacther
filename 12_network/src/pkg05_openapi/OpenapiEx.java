@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.XML;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -193,9 +194,53 @@ public class OpenapiEx {
     }
     
   }
+
+  public static void e() throws Exception {
+    
+    // 기상청 RSS (XML 받아서 JSONObject 로 바뀐 뒤 파싱하기)
+    
+    String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=1168066000";
+    
+    URL url = new URL(apiURL);
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    
+    BufferedReader in = null;
+    if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+      in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    } else {
+      in = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+    }
+    
+    StringBuilder responseBody = new StringBuilder();
+    String line = null;
+    while ((line = in.readLine()) != null)
+      responseBody.append(line);
+    
+    in.close();
+    conn.disconnect();
+    
+    JSONArray data = XML.toJSONObject(responseBody.toString())
+      .getJSONObject("rss")
+      .getJSONObject("channel")
+      .getJSONObject("item")
+      .getJSONObject("description")
+      .getJSONObject("body")
+      .getJSONArray("data");
+      
+    for(int i = 0, length = data.length(); i < length; i++) {
+      JSONObject obj = data.getJSONObject(i);
+      System.out.println("hour : " + obj.getInt("hour"));
+      System.out.println("temp : " + obj.getInt("temp"));
+      System.out.println("tmx : " + obj.getInt("tmx"));
+      System.out.println("tmn : " + obj.getInt("tmn"));
+      System.out.println("wfKor : " + obj.getString("wfKor"));
+      System.out.println("---------------");
+    }
+    
+  }
   
   public static void main(String[] args) throws Exception {
-    d();
+    e();
   }
 
 }
