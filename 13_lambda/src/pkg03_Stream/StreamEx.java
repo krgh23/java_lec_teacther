@@ -1,6 +1,8 @@
 package pkg03_Stream;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,7 +19,7 @@ import java.util.stream.Stream;
 
 public class StreamEx {
 
-  public static void a() {
+  public static void a() throws Exception {
     
     // Stream 인스턴스 생성
     Stream<String> s1 = Stream.of("캥거루", "코알라", "이구아나", "펭귄");
@@ -28,18 +30,26 @@ public class StreamEx {
     List<String> list = Arrays.asList("한국", "일본", "중국", "베트남");
     Stream<String> s3 = list.stream();
     
+    File license = new File("C:\\Program Files\\Java\\jdk-17", "LICENSE");
+    BufferedReader in = new BufferedReader(new FileReader(license));
+    Stream<String> s4 = in.lines();  // 파일의 각 라인을 요소로 저장하고 있는 Stream
+    
     // forEach 메소드 활용
     s1.forEach(animal -> {
       System.out.println(animal); 
     });
     s2.forEach(fruit -> System.out.println(fruit));
     s3.forEach(nation -> System.out.println(nation));
+    StringBuilder builder = new StringBuilder();
+    s4.forEach(line -> builder.append(line).append("\n"));
+    System.out.println(builder.toString());
+    in.close();
     
     // 연습. JAVA_HOME 의 모든 디렉터리/파일 이름 출력하기
     File javaHome = new File("C:\\Program Files\\Java\\jdk-17");
     File[] files = javaHome.listFiles();
-    Stream<File> s4 = Arrays.stream(files);
-    s4.forEach(file -> System.out.println(file.getName()));
+    Stream<File> s5 = Arrays.stream(files);
+    s5.forEach(file -> System.out.println(file.getName()));
     
   }
 
@@ -51,12 +61,24 @@ public class StreamEx {
       .filter(number -> number % 3 == 0)  // Stream 요소 중 number % 3 == 0 결과가 true 인 요소(3의 배수)만 별도 Stream 으로 반환
       .forEach(number -> System.out.println(number));
     
-    // 연습. JAVA_HOME 의 디렉터리 이름 출력하기
+    List<Fruit> fruits = Arrays.asList(
+        new Fruit("단감", 1000), 
+        new Fruit("포도", 2000),
+        new Fruit("사과", 3000)
+    );
+    fruits.stream()
+      .filter(fruit -> fruit.getPrice() >= 2000)
+      .forEach(fruit -> System.out.println(fruit));
     
+    // 연습. JAVA_HOME 의 디렉터리 이름 출력하기
+    File javaHome = new File("C:\\Program Files\\Java\\jdk-17");
+    Arrays.stream(javaHome.listFiles())
+      .filter(file -> file.isDirectory())
+      .forEach(dir -> System.out.println(dir.getName()));
     
   }
   
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     b();
   }
 
